@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body id="container">
+
+<script>
+
+    var Java = function(content) {
+        this.content = content;
+        
+        // 写法一
+        !function(content) {
+            var div = document.createElement('div');
+            div.innerHTML = content;
+            div.style.color = 'green';
+            document.getElementById('container').appendChild(div);
+        }(content);
+    }
+
+    var Php = function(content) {
+        this.content = content;
+        
+        // 写法二
+        (function(content) {
+            var div = document.createElement('div');
+            div.innerHTML = content;
+            div.style.color = 'yellow';
+            document.getElementById('container').appendChild(div);
+        }(content));
+    }
+
+    var Javascript = function(content) {
+        this.content = content;
+        
+        // 写法三
+        (function(content) {
+            var div = document.createElement('div');
+            div.innerHTML = content;
+            div.style.color = 'red';
+            document.getElementById('container').appendChild(div);
+        })(content);
+    }
+
+    var java = new Java('java');
+    var php = new Php('php');
+    var js = new Javascript('javascript');
+</script>
+</body>
+</html>
