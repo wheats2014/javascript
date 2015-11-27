@@ -1,0 +1,7 @@
+        var arrayData = ['a', 'b', 'c', 'd'];
+        
+        var is_array = function(value) {
+            return Object.prototype.toString.apply(value) === '[object Array]';
+        }
+
+        console.log(is_array(arrayData));
