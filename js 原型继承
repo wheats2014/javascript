@@ -1,0 +1,33 @@
+        第一种方式子类prototype赋值为父类的实例
+        
+        // 父类
+        function Super() {
+            this.name = "xm";
+        }
+        
+        // 子类
+        Super.prototype.getName = function() {
+            console.log(this.name);
+        }
+
+        function Sub() {
+            this.name = 'lhw';
+        }
+        
+        // 子类prototype赋值为父类的实例
+        Sub.prototype = new Super();
+        var obj1 = new Sub();
+
+        obj1.getName();
+        
+        
+        第二种通过方法来创建
+        
+        function createObject(o) {
+            var F = function () {};
+            F.prototype = o;
+            return new F();
+        }
+
+        var obj2 = createObject(new Super());
+        obj2.getName();
