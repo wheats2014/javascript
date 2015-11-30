@@ -1,0 +1,58 @@
+    // 元素添加事件的兼容性代码
+    function addEvent(dom, type, fn) {
+        if (dom.addEventListener) {
+            dom.addEventListener(type, fn, false); // DOM2级事件处理方法
+        } else if (dom.attachEvent) {
+            dom.attachEvent(type, fn, false); // ie处理事件的方法，低版的ie浏览器 ie9以下
+        } else {
+            dom['on' + type] = fn; // 以上两种方法都不支持的处理方式
+        }
+    }
+    
+    // 获取事件对象
+    var getEvent = function (event) {
+        return event || window.event;
+    }
+
+    // 获取元素
+    var getTarget = function (event) {
+        var event = getEvent(event);
+        return event.target || event.srcElement;
+    }
+
+    // 阻止默认行业
+    var preventDefault = function (event) {
+        var event = getEvent(event);
+        if (event.preventDefault) {
+            preventDefault();
+        } else {
+            event.returnValue = false;
+        }
+    }
+    
+// 下面是测试html代码
+<div>大家好
+    <p>ppp</p>
+    <span>span1</span>
+</div>
+<div>aaaaa</div>
+
+// js代码
+var element = document.getElementById('demo');
+
+    function callback(e) {
+        var event = getEvent(e)
+        console.log(event.target.nodeName.toLowerCase()); // 元素名称
+
+
+        var that = this;
+         this.removeEventListener('click', callback, false); // 显示完元素名称以后，移除元素的click方法
+         
+         // 5秒以后再添加方法
+         setTimeout(function() {
+         that.addEventListener('click', callback, false);
+         }, 5000);
+    }
+    
+    // 实现addEventListener方法的浏览器添加了事件
+    element.addEventListener('click', callback, false);
