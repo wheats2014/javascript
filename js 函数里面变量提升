@@ -1,0 +1,22 @@
+var myName = 'xiaomai';
+
+function fn() {
+  console.log(myName); //1
+  var myName = 'xm'; //2
+  console.log(myName); //3
+}
+
+fn();
+
+在js中只有函数作用域，函数内声明的变量在执行的时候会提升
+
+在执行fn函数的时候
+function fn() {
+
+// var myName = undefined;
+  console.log(myName); //1 值不是全局的 xiaomai,而是在局部声的myName,只是声明，而没有赋值，他的值是undefined
+  myName = 'xm'; //2
+  console.log(myName); //3
+}
+
+
