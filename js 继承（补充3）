@@ -1,0 +1,50 @@
+    1、构造函数指针
+    
+      function Child() {
+      }
+      var kid = new Child('xiaomai');
+      console.log(kid.constructor === Child);
+      每个对象都有一个constructor的属性，他指向的是实例的构造函数
+   
+      var arr = new Array();
+      console.log(arr.constructor === Array);
+      以上通过数组构造函数生成的arr对象的constructor就是Array()构造函数
+      
+    2、通过借用构造函数的方法
+        function Person(name) {
+        this.name = name || 'adam';
+        }
+    
+        Person.prototype.say = function() {
+            return this.name;
+        }
+    
+        function Child() {
+            Person.apply(this, arguments);
+        }
+    
+        var c = new Child();
+        console.log(c.constructor === Child); // true
+        输出一个true,通过借用构造函数的方式不会改变对象constructor的指向
+        
+    3、原型继承
+        function Person(name) {
+        this.name = name || 'adam';
+        }
+    
+        Person.prototype.say = function() {
+            return this.name;
+        }
+    
+        function Child() {
+            //Person.apply(this, arguments);
+        }
+    
+        Child.prototype = new Person();
+        var c = new Child();
+        console.log(c.constructor === Child);
+        输出一个false代码段 Child.prototype = new Person(); 把Child的prototype属性设置为一个对象。
+        原来是Child.prototype.construct 现在变成了 Child.prototype = {},在子类的原型上没有了constructor,根据原型链向上回溯 new Person()
+        的constructor === Person true这样就改变了constructor的指向
+        
+        接下来会有一种继承方法会解决这种问题
