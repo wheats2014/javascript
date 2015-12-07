@@ -1,0 +1,32 @@
+    function Person(name) {
+        this.name = name || 'lhw';
+    }
+
+    Person.prototype.say = function() {
+        return this.name;
+    }
+
+    function Child() {}
+
+    inherit(Child, Person);
+
+    function inherit(c, p) {
+        c.prototype = new p();
+    }
+
+  // 对象kid添加name属性
+    var kid = new Child();
+    console.log(kid.say());
+    kid.name= 'xm';
+    console.log(kid.say());
+    delete kid.name;
+
+    console.log(kid.say());
+    
+    缺点：
+        1、同时继承了两个对象的属性，添加到this的属性和原型属性
+           Person构造函数代码片段：this.name = name || 'lhw';
+           kid对象代码片段：kid.name= 'xm';
+           
+        2、不对持将参数传递到子构造函数，子构造函数又将参数传递到父构造函数
+           new Child('lxl');
