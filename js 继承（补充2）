@@ -1,0 +1,25 @@
+在js中this有4种用法
+1、做为对象的方法调用
+2、普通函数调用
+3、构造函数调用
+4、函数的apply, call 调用
+
+在上一篇中要解决缺点就要用到上面说的this的第四种用法
+ 
+    function Person(name) {
+        this.name = name || 'adam';
+    }
+
+    Person.prototype.say = function() {
+        return this.name;
+    }
+
+    function Child() {
+        // 借用父构造函数传递子对象以绑定到this
+        Person.apply(this, arguments);
+    }
+
+    Child.prototype = new Person();
+
+    var kid = new Child('xiaomai');
+    console.log(kid.say());
